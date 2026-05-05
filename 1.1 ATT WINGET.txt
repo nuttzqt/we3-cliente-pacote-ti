@@ -1,0 +1,23 @@
+INSTALAR WINGET: $ProgressPreference = 'SilentlyContinue'
+
+# Baixa o instalador oficial mais recente do App Installer, que inclui o winget
+Invoke-WebRequest `
+  -Uri "https://aka.ms/getwinget" `
+  -OutFile "$env:TEMP\AppInstaller.msixbundle"
+
+# Instala/atualiza o App Installer
+Add-AppxPackage -Path "$env:TEMP\AppInstaller.msixbundle"
+
+# Testa o winget
+winget --version
+
+
+
+winget upgrade --all --silent --accept-source-agreements --accept-package-agreements
+winget install --id Microsoft.VCRedist.2015+.x64 -e --silent --accept-source-agreements --accept-package-agreements
+winget install --id Microsoft.VCRedist.2015+.x86 -e --silent --accept-source-agreements --accept-package-agreements
+winget install --id Microsoft.DotNet.DesktopRuntime.8 -e --silent --accept-source-agreements --accept-package-agreements
+winget install --id Microsoft.DotNet.DesktopRuntime.9 -e --silent --accept-source-agreements --accept-package-agreements
+winget install --id Microsoft.DotNet.DesktopRuntime.8 -e --silent --accept-source-agreements --accept-package-agreements
+winget install --id Microsoft.DotNet.DesktopRuntime.9 -e --silent --accept-source-agreements --accept-package-agreements
+DISM /Online /Enable-Feature /FeatureName:NetFx3 /All
